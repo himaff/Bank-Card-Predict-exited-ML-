@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title Page-->
+    <title>Prediction card</title>
+
+    <!-- Icons font CSS-->
+    <link href="{{ url_for('static', path='/vendor/mdi-font/css/material-design-iconic-font.min.css') }}"
+          rel="stylesheet" media="all">
+    <link href="{{ url_for('static', path='/vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet"
+          media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{{ url_for('static', path='/vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body>
+<div class="page-wrapper bg-gra-03 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Prédiction</h2>
+                <form id="predForm" method="POST" action="">
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Customer_Age</label>
+                                <input class="input--style-4" type="number" min="18" max="120" name="Customer_Age"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Relationship_Count</label>
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="Total_Relationship_Count" required>
+                                        <option disabled="disabled" selected="selected" value="">Choisir une option
+                                        </option>
+                                        <option value="1">1 Produits / services</option>
+                                        <option value="2">2 Produits / services</option>
+                                        <option value="3">3 Produits / services</option>
+                                        <option value="4">4 Produits / services</option>
+                                        <option value="5">5 Produits / services</option>
+                                        <option value="6">6 Produits / services</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Revolving_Bal</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4" type="number" min="0" required
+                                           name="Total_Revolving_Bal">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Trans_Ct</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Ct_Chng_Q4_Q1</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                           name="Total_Ct_Chng_Q4_Q1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Avg_Utilization_Ratio</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                           name="Avg_Utilization_Ratio">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Amt_Chng_Q4_Q1</label>
+                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                       name="Total_Amt_Chng_Q4_Q1">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Total_Trans_Amt</label>
+                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit" style="width: 100%;">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery JS-->
+<script src="{{ url_for('static', path='/vendor/jquery/jquery.min.js') }}"></script>
+<!-- Vendor JS-->
+<script src="{{ url_for('static', path='/vendor/select2/select2.min.js') }}"></script>
+
+<!-- Main JS-->
+<script src="{{ url_for('static', path='/js/global.js') }}"></script>
+
+<script type="text/javascript">
+        $('#predForm').on('submit', function (e) {
+            e.preventDefault();
+            var data = $('#predForm').serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8000/predict?'+data,
+                success: function (res) {
+                    var ypred = '';
+                    if (res.data == 1) {
+                        ypred = 'le client se désabonnera au service de carte bancaire';
+                    }else {
+                        ypred = 'le client continuera son abonnement au service de carte bancaire';
+                    }
+                    alert(ypred);
+
+                }
+            });
+        });
+
+</script>
+
+</body>
+
+</html>
