@@ -25,7 +25,7 @@
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet" media="all">
 </head>
 
-<body class="vh-100">
+<body class="min-vh-100">
 <div class="bg d-flex justify-content-center align-items-center h-100">
     <div class="w-50 ">
         <div class="card card-4">
@@ -34,14 +34,14 @@
                 <form id="predForm" method="POST" action="">
 
                     <div class="row row-space">
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Age du client</label>
                                 <input class="input--style-4" type="number" min="18" max="120" name="Customer_Age"
                                        required>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Nombre total de produits détenus</label>
                                 <div class="rs-select2 js-select-simple select--no-search w-100">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="row row-space">
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Solde renouvelable total sur la carte de crédit</label>
                                 <input class="input--style-4" type="number" min="0" required
@@ -70,7 +70,7 @@
                         </div>
 
 
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Nombre total de transactions</label>
                                 <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct" aria-describedby="Total_Trans_CtHelp">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Variation du nombre de transactions</label>
                                 <input class="input--style-4" type="number" min="0.0" step="0.01" required
@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Taux d'utilisation moyen de la carte</label>
                                 <input class="input--style-4" type="number" min="0.0" step="0.01" required
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="row row-space">
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Variation du montant de la transaction</label>
                                 <input class="input--style-4" type="number" min="0.0" step="0.01" required
@@ -104,7 +104,7 @@
                                 <div id="Total_Amt_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-sm-12">
+                        <div class="col-xxl-6 col-sm-12">
                             <div class="input-group">
                                 <label class="label">Montant total de la transaction</label>
                                 <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt" aria-describedby="Total_Trans_AmtHelp">
