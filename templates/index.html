@@ -175,7 +175,7 @@
             el.after('<div class="text-placeholder placeholder w-75"></div> <div class="text-placeholder placeholder w-50"></div> <div class="text-placeholder placeholder w-75"></div><div class="text-placeholder placeholder w-100"></div> <div class="text-placeholder placeholder w-100"></div>');
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8000/predict?'+data,
+                url: '/predict?'+data,
                 success: function (res) {
                     if (res.data == 1) {
                         el.after('<div class="alert alert-danger" role="alert"> <h4 class="alert-heading">Attention Requise!</h4><div class="row mt-4">'+info+'</div><hr><p class="mb-0 h6">le client se désabonnera au service de carte bancaire.</p><p class="mb-0 text-muted text-end" style="font-size: 10px;">Bank Credit Card exited- HIMAF &COPY; 2021.</p></div>');
