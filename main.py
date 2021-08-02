@@ -39,7 +39,3 @@ async def predict(Customer_Age: int, Total_Relationship_Count: int, Total_Revolv
     ypred = model.predict(data).tolist()
 
     return {"data": ypred[0]}
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host="localhost", port=8080)
