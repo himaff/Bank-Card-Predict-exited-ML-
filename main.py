@@ -15,8 +15,8 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "id": id})
+async def get_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.post("/predict")
@@ -31,7 +31,7 @@ async def predict(Customer_Age: int, Total_Relationship_Count: int, Total_Revolv
     model = pickle.load(open('creditCard_modelRFC.sav', 'rb'))
 
     # initialisation des données en list
-    data = [[Customer_Age, Total_Relationship_Count, Total_Relationship_Count, Total_Amt_Chng_Q4_Q1, Total_Trans_Amt, Total_Trans_Ct, Total_Ct_Chng_Q4_Q1, Avg_Utilization_Ratio]]
+    data = [[Customer_Age, Total_Relationship_Count, Total_Revolving_Bal, Total_Amt_Chng_Q4_Q1, Total_Trans_Amt, Total_Trans_Ct, Total_Ct_Chng_Q4_Q1, Avg_Utilization_Ratio]]
 
     # creer le DataFrame
     data = pd.DataFrame(data, columns=features)
