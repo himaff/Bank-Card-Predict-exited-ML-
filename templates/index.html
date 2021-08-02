@@ -5,7 +5,7 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Title Page-->
     <title>Prediction card</title>
 
@@ -25,27 +25,27 @@
     <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet" media="all">
 </head>
 
-<body>
-<div class="page-wrapper bg-gra-03 p-t-130 p-b-100 font-poppins">
-    <div class="wrapper wrapper--w680">
+<body class="vh-100">
+<div class="bg d-flex justify-content-center align-items-center h-100">
+    <div class="w-50 ">
         <div class="card card-4">
             <div class="card-body">
                 <h2 class="title">Prédiction</h2>
                 <form id="predForm" method="POST" action="">
 
                     <div class="row row-space">
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Customer_Age</label>
+                                <label class="label">Age du client</label>
                                 <input class="input--style-4" type="number" min="18" max="120" name="Customer_Age"
                                        required>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Relationship_Count</label>
-                                <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="Total_Relationship_Count" required>
+                                <label class="label">Nombre total de produits détenus</label>
+                                <div class="rs-select2 js-select-simple select--no-search w-100">
+                                    <select name="Total_Relationship_Count" required class="input--style-4">
                                         <option disabled="disabled" selected="selected" value="">Choisir une option
                                         </option>
                                         <option value="1">1 Produits / services</option>
@@ -61,68 +61,67 @@
                         </div>
                     </div>
                     <div class="row row-space">
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Revolving_Bal</label>
-                                <div class="input-group-icon">
-                                    <input class="input--style-4" type="number" min="0" required
+                                <label class="label">Solde renouvelable total sur la carte de crédit</label>
+                                <input class="input--style-4" type="number" min="0" required
                                            name="Total_Revolving_Bal">
-
-                                </div>
                             </div>
                         </div>
 
 
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Trans_Ct</label>
-                                <div class="input-group-icon">
-                                    <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct">
-                                </div>
+                                <label class="label">Nombre total de transactions</label>
+                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct" aria-describedby="Total_Trans_CtHelp">
+                                <div id="Total_Trans_CtHelp" class="form-text">(12 derniers mois)</div>
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Ct_Chng_Q4_Q1</label>
-                                <div class="input-group-icon">
-                                    <input class="input--style-4" type="number" min="0.0" step="0.01" required
-                                           name="Total_Ct_Chng_Q4_Q1">
-                                </div>
+                                <label class="label">Variation du nombre de transactions</label>
+                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                           name="Total_Ct_Chng_Q4_Q1" aria-describedby="Total_Ct_Chng_Q4_Q1Help">
+                                <div id="Total_Ct_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Avg_Utilization_Ratio</label>
-                                <div class="input-group-icon">
-                                    <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                <label class="label">Taux d'utilisation moyen de la carte</label>
+                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
                                            name="Avg_Utilization_Ratio">
-
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row row-space">
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Amt_Chng_Q4_Q1</label>
+                                <label class="label">Variation du montant de la transaction</label>
                                 <input class="input--style-4" type="number" min="0.0" step="0.01" required
-                                       name="Total_Amt_Chng_Q4_Q1">
+                                       name="Total_Amt_Chng_Q4_Q1" aria-describedby="Total_Amt_Chng_Q4_Q1Help">
+                                <div id="Total_Amt_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-group">
-                                <label class="label">Total_Trans_Amt</label>
-                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt">
+                                <label class="label">Montant total de la transaction</label>
+                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt" aria-describedby="Total_Trans_AmtHelp">
+                                <div id="Total_Trans_AmtHelp" class="form-text">(12 derniers mois)</div>
                             </div>
                         </div>
                     </div>
                     <div class="p-t-15">
-                        <button class="btn btn--radius-2 btn--blue" type="submit" style="width: 100%;">Envoyer</button>
+                        <button class="btn btn--radius-2 btn-primary py-3" type="submit" style="width: 100%;">Envoyer</button>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+    <div class="card position-absolute bottom-0 end-0 mb-2 me-2 border-2" style="background-color: rgba(255,255,255,0.8)">
+        <div class="card-body" style="font-size: 11px">
+            Photo by <a href="https://unsplash.com/@ibrahimboran?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ibrahim Boran</a> on <a href="https://unsplash.com/s/photos/cash?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
         </div>
     </div>
 </div>
@@ -133,24 +132,65 @@
 <script src="{{ url_for('static', path='/vendor/select2/select2.min.js') }}"></script>
 
 <!-- Main JS-->
-<script src="{{ url_for('static', path='/js/global.js') }}"></script>
+<script src="{{ url_for('static', path='/js/main.js') }}"></script>
 
 <script type="text/javascript">
         $('#predForm').on('submit', function (e) {
             e.preventDefault();
-            var data = $('#predForm').serialize();
+            var el = $('#predForm');
+            var data = el.serialize();
+            var dataArray = el.serializeArray();
+            console.log(dataArray);
+            var info = "";
+            dataArray.forEach(x => {
+
+                if (x.name === 'Customer_Age') {
+                    x.name = 'Age du client';
+                    x.value = x.value.toString() + ' ans';
+                }
+                if (x.name === 'Total_Relationship_Count') {
+                    x.name = 'Nombre total de produits détenus';
+                }
+                if (x.name === 'Total_Revolving_Bal') {
+                    x.name = 'Solde renouvelable total sur la carte de crédit';
+                }
+                if (x.name === 'Total_Amt_Chng_Q4_Q1') {
+                    x.name = 'Variation du montant de transactions';
+                }
+                if (x.name === 'Total_Trans_Amt') {
+                    x.name = 'Montant total de transactions <small>(12 derniers mois)</small>';
+                }
+                if (x.name === 'Total_Trans_Ct') {
+                    x.name = 'Nombre de transactions <small>(12 derniers mois)</small>\'';
+                }
+                if (x.name === 'Total_Ct_Chng_Q4_Q1') {
+                    x.name = 'Variation du nombre de transactions';
+                }
+                if (x.name === 'Avg_Utilization_Ratio') {
+                    x.name = 'Taux d\'utilisation moyen de la carte';
+                }
+                info += '<div class="col-6"><p>'+ x.name +': <b>'+ x.value+'</b></p></div>';
+            });
+
+            el.html('');
+            el.after('<div class="text-placeholder placeholder w-75"></div> <div class="text-placeholder placeholder w-50"></div> <div class="text-placeholder placeholder w-75"></div><div class="text-placeholder placeholder w-100"></div> <div class="text-placeholder placeholder w-100"></div>');
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8000/predict?'+data,
                 success: function (res) {
-                    var ypred = '';
                     if (res.data == 1) {
-                        ypred = 'le client se désabonnera au service de carte bancaire';
+                        el.after('<div class="alert alert-danger" role="alert"> <h4 class="alert-heading">Attention Requise!</h4><div class="row mt-4">'+info+'</div><hr><p class="mb-0 h6">le client se désabonnera au service de carte bancaire.</p><p class="mb-0 text-muted text-end" style="font-size: 10px;">Bank Credit Card exited- HIMAF &COPY; 2021.</p></div>');
+                        $('.text-placeholder').remove();
                     }else {
-                        ypred = 'le client continuera son abonnement au service de carte bancaire';
+                        el.after('<div class="alert alert-success" role="alert"> <h4 class="alert-heading">Félicitation!</h4><div class="row mt-4">'+info+'</div><hr><p class="mb-0 h6">le client continuera son abonnement au service de carte bancaire.</p><p class="mb-0 text-muted text-end" style="font-size: 10px;">Bank Credit Card exited- HIMAF &COPY; 2021.</p></div>');
+                        $('.text-placeholder').remove();
                     }
-                    alert(ypred);
 
+                    $('h2.title').html('<i class="fa fa-arrow-left" aria-hidden="true"></i> Prédiction');
+                    $('.fa.fa-arrow-left').css('cursor', 'pointer');
+                    $('.fa.fa-arrow-left').click(function() {
+                        location.reload();
+                    });
                 }
             });
         });
