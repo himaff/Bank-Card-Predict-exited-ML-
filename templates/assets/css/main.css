@@ -1,3 +1,8 @@
+.btn-secondary {
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.2);
+  border: none;
+}
 .text-placeholder {
   height: 8px;
   margin-bottom: 5px;
@@ -277,3 +282,79 @@ input {
 }
 
 
+/*// X-Small devices (portrait phones, less than 576px)*/
+/*// No media query for `xs` since this is the default in Bootstrap*/
+
+/*// Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+  #no-data div img {
+    display: none;
+  }
+
+  #no-data div {
+    margin-top: 3rem;
+  }
+}
+
+/*// Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+  #no-data div img {
+    margin-right: -90px;
+    height: 300%;
+    opacity: 0.7;
+    margin-top: -70px;
+    display: inline-block;
+  }
+
+  #no-data div {
+    margin-left: -8rem;
+    margin-top: 3rem;
+  }
+}
+
+/*// Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  #no-data div img {
+    margin-right: -160px;
+    height: 350%;
+    opacity: 0.7;
+    margin-top: -90px;
+    display: inline-block;
+  }
+
+  #no-data div {
+    margin-left: -10rem;
+    margin-top: 3rem;
+  }
+}
+
+/*// X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+  #no-data div img {
+    margin-right: -170px;
+    height: 350%;
+    opacity: 0.7;
+    margin-top: -90px;
+    display: inline-block;
+  }
+
+  #no-data div {
+    margin-left: -30px;
+    margin-top: 3rem;
+  }
+}
+
+/*// XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px) {
+  #no-data div img {
+    margin-right: -200px;
+    height: 400%;
+    opacity: 0.7;
+    margin-top: -90px;
+    display: inline-block;
+  }
+
+  #no-data div {
+    margin-top: 3rem;
+  }
+}
