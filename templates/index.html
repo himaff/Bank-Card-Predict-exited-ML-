@@ -1,141 +1,99 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends 'layouts/base.html' %}
 
-<head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Title Page-->
-    <title>Prediction card</title>
+{% block content %}
+<div class="d-flex justify-content-center align-items-start searchDb">
+    <div class="pt-4">
+        <h2 class="title">Prédiction</h2>
+        <form id="predForm" method="POST" action="">
 
-    <!-- Icons font CSS-->
-    <link href="{{ url_for('static', path='/vendor/mdi-font/css/material-design-iconic-font.min.css') }}"
-          rel="stylesheet" media="all">
-    <link href="{{ url_for('static', path='/vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet"
-          media="all">
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-
-    <!-- Vendor CSS-->
-    <link href="{{ url_for('static', path='/vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet" media="all">
-</head>
-
-<body class="min-vh-100 h-100 bg">
-{% include '_partials/navbar.html' %}
-
-<div class="d-flex justify-content-center align-items-center min-h-100">
-    <div class="w-50 h-100 my-4">
-        <div class="card card-4">
-            <div class="card-body">
-                <h2 class="title">Prédiction</h2>
-                <form id="predForm" method="POST" action="">
-
-                    <div class="row row-space">
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Age du client</label>
-                                <input class="input--style-4" type="number" min="18" max="120" name="Customer_Age"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Nombre total de produits détenus</label>
-                                <div class="rs-select2 js-select-simple select--no-search w-100">
-                                    <select name="Total_Relationship_Count" required class="input--style-4">
-                                        <option disabled="disabled" selected="selected" value="">Choisir une option
-                                        </option>
-                                        <option value="1">1 Produits / services</option>
-                                        <option value="2">2 Produits / services</option>
-                                        <option value="3">3 Produits / services</option>
-                                        <option value="4">4 Produits / services</option>
-                                        <option value="5">5 Produits / services</option>
-                                        <option value="6">6 Produits / services</option>
-                                    </select>
-                                    <div class="select-dropdown"></div>
-                                </div>
-                            </div>
+            <div class="row row-space">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Age du client</label>
+                        <input class="input--style-4" type="number" min="18" max="120" name="Customer_Age"
+                               required>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Nombre total de produits détenus</label>
+                        <div class="rs-select2 js-select-simple select--no-search w-100">
+                            <select name="Total_Relationship_Count" required class="input--style-4">
+                                <option disabled="disabled" selected="selected" value="">Choisir une option
+                                </option>
+                                <option value="1">1 Produits / services</option>
+                                <option value="2">2 Produits / services</option>
+                                <option value="3">3 Produits / services</option>
+                                <option value="4">4 Produits / services</option>
+                                <option value="5">5 Produits / services</option>
+                                <option value="6">6 Produits / services</option>
+                            </select>
+                            <div class="select-dropdown"></div>
                         </div>
                     </div>
-                    <div class="row row-space">
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Solde renouvelable total sur la carte de crédit</label>
-                                <input class="input--style-4" type="number" min="0" required
-                                           name="Total_Revolving_Bal">
-                            </div>
-                        </div>
-
-
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Nombre total de transactions</label>
-                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct" aria-describedby="Total_Trans_CtHelp">
-                                <div id="Total_Trans_CtHelp" class="form-text">(12 derniers mois)</div>
-                            </div>
-                        </div>
-
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Variation du nombre de transactions</label>
-                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
-                                           name="Total_Ct_Chng_Q4_Q1" aria-describedby="Total_Ct_Chng_Q4_Q1Help">
-                                <div id="Total_Ct_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
-                            </div>
-                        </div>
-
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Taux d'utilisation moyen de la carte</label>
-                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
-                                           name="Avg_Utilization_Ratio">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-space">
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Variation du montant de la transaction</label>
-                                <input class="input--style-4" type="number" min="0.0" step="0.01" required
-                                       name="Total_Amt_Chng_Q4_Q1" aria-describedby="Total_Amt_Chng_Q4_Q1Help">
-                                <div id="Total_Amt_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-6 col-sm-12">
-                            <div class="input-group">
-                                <label class="label">Montant total de la transaction</label>
-                                <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt" aria-describedby="Total_Trans_AmtHelp">
-                                <div id="Total_Trans_AmtHelp" class="form-text">(12 derniers mois)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-t-15">
-                        <button class="btn btn--radius-2 btn-primary py-3" type="submit" style="width: 100%;">Envoyer</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="card position-absolute bottom-0 end-0 mb-2 me-2 border-2" style="background-color: rgba(255,255,255,0.8)">
-        <div class="card-body" style="font-size: 11px">
-            Photo by <a href="https://unsplash.com/@ibrahimboran?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ibrahim Boran</a> on <a href="https://unsplash.com/s/photos/cash?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-        </div>
+            <div class="row row-space">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Solde renouvelable total sur la carte de crédit</label>
+                        <input class="input--style-4" type="number" min="0" required
+                                   name="Total_Revolving_Bal">
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Nombre total de transactions</label>
+                        <input class="input--style-4" type="number" min="0" required name="Total_Trans_Ct" aria-describedby="Total_Trans_CtHelp">
+                        <div id="Total_Trans_CtHelp" class="form-text">(12 derniers mois)</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Variation du nombre de transactions</label>
+                        <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                   name="Total_Ct_Chng_Q4_Q1" aria-describedby="Total_Ct_Chng_Q4_Q1Help">
+                        <div id="Total_Ct_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Taux d'utilisation moyen de la carte</label>
+                        <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                                   name="Avg_Utilization_Ratio">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-space">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Variation du montant de la transaction</label>
+                        <input class="input--style-4" type="number" min="0.0" step="0.01" required
+                               name="Total_Amt_Chng_Q4_Q1" aria-describedby="Total_Amt_Chng_Q4_Q1Help">
+                        <div id="Total_Amt_Chng_Q4_Q1Help" class="form-text">(T4 par rapport au T1)</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                        <label class="label">Montant total de la transaction</label>
+                        <input class="input--style-4" type="number" min="0" required name="Total_Trans_Amt" aria-describedby="Total_Trans_AmtHelp">
+                        <div id="Total_Trans_AmtHelp" class="form-text">(12 derniers mois)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-t-15">
+                <button class="btn btn--radius-2 btn-primary py-3" type="submit" style="width: 100%;">Envoyer</button>
+            </div>
+        </form>
     </div>
 </div>
+{% endblock %}
 
-<!-- Jquery JS-->
-<script src="{{ url_for('static', path='/vendor/jquery/jquery.min.js') }}"></script>
-<!-- Vendor JS-->
-<script src="{{ url_for('static', path='/vendor/select2/select2.min.js') }}"></script>
-
-<!-- Main JS-->
-<script src="{{ url_for('static', path='/js/main.js') }}"></script>
-
+{% block script %}
 <script type="text/javascript">
         $('#predForm').on('submit', function (e) {
             e.preventDefault();
@@ -197,7 +155,4 @@
         });
 
 </script>
-
-</body>
-
-</html>
+{% endblock %}

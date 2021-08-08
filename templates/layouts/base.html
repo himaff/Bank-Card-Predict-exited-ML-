@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Title Page-->
+    <title>Prediction card</title>
+
+    <!-- Icons font CSS-->
+    <link href="{{ url_for('static', path='/vendor/mdi-font/css/material-design-iconic-font.min.css') }}"
+          rel="stylesheet" media="all">
+    <link href="{{ url_for('static', path='/vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet"
+          media="all">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/vendor/datatable/datatables.min.css') }}"/>
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{{ url_for('static', path='/vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body class="min-vh-100 h-100 bg-white position-relative pb-5">
+{% include '_partials/navbar.html' %}
+
+
+<div class="container pb-5 h-100" >
+    {% block content %}
+    hjdhdhdhdhdhdh
+    {% endblock %}
+
+</div>
+
+<footer class="mt-3 bg-light py-3 position-absolute bottom-0 w-100">
+    <div class="container-fluid">
+        PREDICT CHURNING CUSTOMERS - HIMAF &copy; 2021
+    </div>
+</footer>
+
+<!-- Jquery JS-->
+<script src="{{ url_for('static', path='/vendor/jquery/jquery.min.js') }}"></script>
+
+<!-- Vendor JS-->
+<script src="{{ url_for('static', path='/vendor/select2/select2.min.js') }}"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', path='/vendor/datatable/datatables.min.js') }}"></script>
+
+<!-- Main JS-->
+<script src="{{ url_for('static', path='/js/main.js') }}"></script>
+
+{% block script %}
+{% endblock %}
+
+</body>
+
+</html>

@@ -281,6 +281,30 @@ input {
   margin-bottom: 40px;
 }
 
+.home {
+  height: calc(100vh - 56px - 56px - 3rem);
+}
+.searchDb {
+  height: calc(100vh - 56px - 56px - 3rem);
+}
+.searchDb > div.d-flex {
+  flex-direction: column;
+}
+
+.home img {
+  display: none;
+}
+
+#no-data div img {
+  display: none;
+}
+
+th[scope="row"], th.check-all {
+  width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 
 /*// X-Small devices (portrait phones, less than 576px)*/
 /*// No media query for `xs` since this is the default in Bootstrap*/
@@ -294,6 +318,10 @@ input {
   #no-data div {
     margin-top: 3rem;
   }
+
+  .home img {
+    display: none;
+  }
 }
 
 /*// Medium devices (tablets, 768px and up)*/
@@ -304,6 +332,10 @@ input {
     opacity: 0.7;
     margin-top: -70px;
     display: inline-block;
+  }
+
+  .searchDb > div.d-flex {
+    flex-direction: row;
   }
 
   #no-data div {
@@ -326,6 +358,11 @@ input {
     margin-left: -10rem;
     margin-top: 3rem;
   }
+
+  .home img {
+    display: inline-block;
+    width: 400px;
+  }
 }
 
 /*// X-Large devices (large desktops, 1200px and up)*/
@@ -342,6 +379,10 @@ input {
     margin-left: -30px;
     margin-top: 3rem;
   }
+  .home img {
+    display: inline-block;
+    width: 500px;
+  }
 }
 
 /*// XX-Large devices (larger desktops, 1400px and up)*/
@@ -356,5 +397,10 @@ input {
 
   #no-data div {
     margin-top: 3rem;
+  }
+
+  .home img {
+    display: inline-block;
+    width: 600px;
   }
 }
