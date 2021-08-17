@@ -305,6 +305,22 @@ th[scope="row"], th.check-all {
   padding-right: 0;
 }
 
+.dropzone {
+  border: 2px dashed #0087F7;
+  border-radius: 5px;
+  background: white;
+  min-height: 30vh;
+  padding: 54px;
+}
+
+.dz-message {
+  padding: 5% 0 0;
+}
+
+.modal select {
+  border: 2px dashed #0087F7;
+  color: #0087F7;
+}
 
 /*// X-Small devices (portrait phones, less than 576px)*/
 /*// No media query for `xs` since this is the default in Bootstrap*/

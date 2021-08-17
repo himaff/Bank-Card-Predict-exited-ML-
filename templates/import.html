@@ -1,0 +1,279 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="searchDb d-flex flex-column">
+
+        <div class="d-flex justify-content-between mt-5">
+            <h2 class="title d-inline">Prédiction Multiple depuis la base de données</h2>
+            <form id="predForm" method="POST" action="">
+                <div class="row row-space ms-2">
+<!--                        <div class="col-sm-10 px-0 col-xxl-10">-->
+<!--                            <div class="input-group">-->
+<!--                                <input class="input&#45;&#45;style-4" type="hidden"  name="search_count" required value="[]">-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="col-12 px-1">
+                            <button id="search" class="btn btn--radius-2 btn-primary py-3" type="submit" style="display: none;vertical-align: middle;">Recherchez</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row row-space h-100">
+            <div class="col-12 position-relative" style="height: 100% !important;">
+                <div id="spinner" class=" justify-content-center align-items-center h-100" style="display: none;">
+                    <div class="spinner-grow text-primary" style="width: 5rem; height: 5rem;" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="table-responsive table-res" style="display: none;height: 95% !important">
+                    <table class="table table-striped">
+                    <thead class="sticky-top bg-white">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Age du client</th>
+                            <th scope="col">Nombre total de produits détenus</th>
+                            <th scope="col">Solde renouvelable total sur la carte de crédit</th>
+                            <th scope="col">Variation du montant de la transaction</th>
+                            <th scope="col">Montant total de la transaction</th>
+                            <th scope="col">Nombre total de transactions</th>
+                            <th scope="col">Variation du nombre de transactions</th>
+                            <th scope="col">Taux d'utilisation moyen de la carte</th>
+                            <th scope="col">Status Connu</th>
+                            <th scope="col">Status prédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                </div>
+
+<!--                <div id="no-data" class="justify-content-center align-items-start" style="display: none;">-->
+<!--                    <img src="{{ url_for('static', path='/bg_search.svg') }}" alt="illustration" class="position-absolute top-0"  style="height: 100% !important; opacity: 0.7"/>-->
+
+<!--                    <div class="position-relative">-->
+<!--                        <h2>Rechercher des prédictions</h2>-->
+<!--                        <img src="{{ url_for('static', path='/arrow-info.svg') }}" alt="indicate arrow" class="position-absolute top-0 end-0"/>-->
+<!--                        <p>Entrez le nombre d'opérations recherché lancez la recherche.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="table-responsive table-all" style="height: 89%">
+                    <!-- Table  -->
+                    <table id="dbTable" class="table table-striped">
+                        <!-- Table head -->
+                        <thead class="sticky-top bg-white">
+                            <tr>
+                            <th scope="col" class="check-all">
+                                <input type="checkbox" class="custom-control-input" id="checkAll">
+                            </th>
+                            <th scope="col">ID client</th>
+                            <th scope="col">Age du client</th>
+                            <th scope="col">Nombre total de produits détenus</th>
+                            <th scope="col">Solde renouvelable total sur la carte de crédit</th>
+                            <th scope="col">Variation du montant de la transaction</th>
+                            <th scope="col">Montant total de la transaction</th>
+                            <th scope="col">Nombre total de transactions</th>
+                            <th scope="col">Variation du nombre de transactions</th>
+                            <th scope="col">Taux d'utilisation moyen de la carte</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in datas %}
+                                <tr>
+                                    <th scope="row">
+
+                                    </th>
+                                    <td>{{row[0]}}</td>
+                                    <td>{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                    <td>{{row[4]}}</td>
+                                    <td>{{row[5]}}</td>
+                                    <td>{{row[6]}}</td>
+                                    <td>{{row[7]}}</td>
+                                    <td>{{row[8]}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <!-- Table body -->
+                    </table>
+                    <!-- Table  -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tableLoad
+        tableLoad = $('#dbTable').DataTable({
+            searching: false,
+            lengthChange: false,
+            rowId: 'ID client',
+            columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+            } ],
+            select: {
+                style: 'multi',
+                selector: 'th:first-child'
+            },
+            order: [
+                [1, 'desc']
+            ],
+            language: {
+                url: '{{ url_for("static", path="/vendor/datatable/French.json") }}'
+            }
+        });
+
+        tableLoad.on("click", "th.select-checkbox.check-all", function() {
+            if ($("th.select-checkbox.check-all").hasClass("selected")) {
+                tableLoad.rows().deselect();
+                $("th.select-checkbox.check-all").removeClass("selected");
+                $("#checkAll").prop("checked", false);
+            } else {
+                tableLoad.rows().select();
+                $("th.select-checkbox.check-all").addClass("selected");
+                $("#checkAll").prop("checked", true);
+            }
+        }).on("select deselect", function() {
+            ("Some selection or deselection going on")
+
+            if (tableLoad.rows({
+                selected: true
+            }).count() == 0){
+                $("#checkAll").prop("checked", false);
+                $("#checkAll").prop("indeterminate", false);
+                $("#search").hide();
+            }
+            else if (tableLoad.rows({
+                selected: true
+            }).count() !== tableLoad.rows().count()) {
+                // $("th.select-checkbox.check-all").removeClass("selected");
+                $("#checkAll").prop("checked", false);
+                $("#checkAll").prop("indeterminate", true);
+                $("#search").html('<i class="fa fa-search" aria-hidden="true" ></i> Recherchez '+tableLoad.rows({selected: true}).count()+' Prédictions');
+                $("#search").show();
+
+            }
+            else {
+                // $("th.select-checkbox.check-all").addClass("selected");
+                $("#checkAll").prop("checked", true);
+                $("#search").html('<i class="fa fa-search" aria-hidden="true" ></i> Recherchez toutes les Prédictions');
+                $("#search").show();
+
+            }
+        });
+
+        $('#predForm').on('submit', function (e) {
+            e.preventDefault();
+            var rows = tableLoad.rows({selected: true }).data().toArray();
+            $('#spinner').css('display', 'flex');
+            $('.table-all').hide();
+            // $('#no-data').hide();
+            var el = $('#predForm');
+            // var data = el.serialize();
+            el.hide();
+            var tableData = '';
+            var rows_data = [];
+            rows.forEach(function (data){
+                rows_data.push(data[1]);
+            });
+            $.ajax({
+                type: 'GET',
+                url: '/select_predict?searchID=('+rows_data+')',
+                success: function (res) {
+                    res.datas.forEach(function(data, i) {
+                        tableData += '<tr><th scope="row">'+(i+1)+'</th>';
+
+                        data.forEach(function(d, index) {
+                            if (index == 8) {
+                                var y = res.pred[i];
+                                if (y == 1) {
+                                    y = "Existing Customer";
+                                    var ycolor = 'background-color: #d63384;';
+                                }
+                                else {
+                                    y = "Attrited Customer";
+                                    var ycolor = 'background-color: #20c997;';
+                                };
+                                if (d == "Existing Customer") {
+                                    var color = 'background-color: #d63384;';
+                                }  else {
+                                    var color = 'background-color: #20c997;';
+                                };
+                                tableData+='<td><span class="badge rounded-pill" style="'+color+'color: white;">'+d+'</span></td>';
+                                tableData+='<td><span class="badge rounded-pill" style="'+ycolor+'color: white;">'+y+'</span></td>';
+                            }
+                            else {
+                                tableData+='<td>'+d+'</td>';
+                            }
+
+                        });
+                        tableData += '</tr>';
+                    });
+                    $('.table-res .table.table-striped tbody').html('');
+                    $('.table-res .table.table-striped tbody').append(tableData);
+                    $('#spinner').hide();
+                    $('#search').hide();
+                    $('.table-res.table-responsive').show();
+                    el.show();
+                }
+            });
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '/predict?'+data,
+            //     success: function (res) {
+            //         // console.log(res);
+            //         res.datas.forEach(function(data, i) {
+            //             tableData += '<tr><th scope="row">'+(i+1)+'</th>';
+            //
+            //             data.forEach(function(d, index) {
+            //                 if (index == 8) {
+            //                     var y = res.pred[i];
+            //                     if (y == 1) {
+            //                         y = "Existing Customer";
+            //                         var ycolor = 'background-color: #d63384;';
+            //                     }
+            //                     else {
+            //                         y = "Attrited Customer";
+            //                         var ycolor = 'background-color: #20c997;';
+            //                     };
+            //                     if (d == "Existing Customer") {
+            //                         var color = 'background-color: #d63384;';
+            //                     }  else {
+            //                         var color = 'background-color: #20c997;';
+            //                     };
+            //                     tableData+='<td><span class="badge rounded-pill" style="'+color+'color: white;">'+d+'</span></td>';
+            //                     tableData+='<td><span class="badge rounded-pill" style="'+ycolor+'color: white;">'+y+'</span></td>';
+            //                 }
+            //                 else {
+            //                     tableData+='<td>'+d+'</td>';
+            //                 }
+            //
+            //             });
+            //             tableData += '</tr>';
+            //         });
+            //         $('.table.table-striped tbody').html('');
+            //         $('.table.table-striped tbody').append(tableData);
+            //         $('#spinner').hide();
+            //         $('.table-responsive').show();
+            //         el.show();
+            //
+            //     }
+            // });
+        });
+    });
+
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,62 @@
+<!-- Modal for import-->
+<div class="modal fade" id="import" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="importLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importLabel">Importer des données</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5">
+<!--                <form id="dataFile"></form>-->
+                <form action="/file-upload" class="dropzone" id="dataFile">
+<!--                    <input type="file" accept=".pdf" class="dz-hidden-input">-->
+                    <div class="dz-message needsclick">
+                        <button type="button" class="dz-button">Glissez vos fichiers ici ou Cliquez pour télécharger.</button><br>
+                        <span class="note needsclick">( les fichiers compatibles sont <strong>.csv, .txt, xls, xlsx</strong>)</span>
+                    </div>
+                </form>
+
+            </div>
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Understood</button>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for import view-->
+<div class="modal fade" id="viewImport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewImportLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content bg-light">
+            <div class="modal-header" style="display: none;">
+                <h5 class="modal-title" id="viewImportLabel">Selection des données</h5>
+                <div class="d-flex">
+                    <form id="predForm1" method="POST" action="">
+                        <button id="search" class="btn btn--radius-2 btn-primary py-3" type="submit" style="display: none;vertical-align: middle;">Recherchez</button>
+                    </form>
+                    <button type="button" class="ms-3 btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+            </div>
+            <div class="modal-body p-5">
+                <div id="spinner" class="justify-content-center align-items-center " style="height: 400px;display: flex">
+                    <div class="spinner-grow text-primary" style="width: 5rem; height: 5rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="table-responsive table-all" >
+                    <!-- Table  -->
+                    <table id="dbTable1" class="table table-striped" style="display: none;">
+                    </table>
+                    <!-- Table  -->
+                </div>
+            </div>
+            <!--            <div class="modal-footer">-->
+            <!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+            <!--                <button type="button" class="btn btn-primary">Understood</button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>
